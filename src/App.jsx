@@ -4,11 +4,17 @@ import { db } from './db/db';
 
 export const App = () => {
     const [guitars, setGuitars] = useState([]);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(
+        JSON.parse(localStorage.getItem('cart')) || []
+    );
 
     useEffect(() => {
         setGuitars(db);
     }, []);
+
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
 
     const addToCart = (id) => {
         const find = cart.find((item) => item.id === id);
