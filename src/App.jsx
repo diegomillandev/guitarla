@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { Footer, Guitar, Header } from './components';
 import { db } from './db/db';
 
+const initialCart = () => {
+    const localStorageCart = localStorage.getItem('cart');
+    return localStorageCart ? JSON.parse(localStorageCart) : [];
+};
+
 export const App = () => {
     const [guitars, setGuitars] = useState([]);
-    const [cart, setCart] = useState(
-        JSON.parse(localStorage.getItem('cart')) || []
-    );
+    const [cart, setCart] = useState(initialCart);
 
     useEffect(() => {
         setGuitars(db);
